@@ -1,0 +1,549 @@
+const MasterEbay = {
+  render() {
+    return `
+      <main class="master-ebay" style="background:#080808;color:#efe6d6;min-height:80vh;padding:40px 20px;">
+        <style>
+          .meb-hero{ max-width:1200px; margin:0 auto 28px; display:flex; flex-direction:column; gap:18px; align-items:center; }
+          .meb-hero-visual{ width:50%; max-width:600px; border-radius:20px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,0.6); }
+          .meb-hero-visual img{ width:100%; height:auto; display:block; }
+          .meb-separator{
+            width:100vw;
+            margin-left:calc(50% - 50vw);
+            height:60px;
+            background:linear-gradient(90deg, rgba(212,169,85,1), rgba(212,169,85,0.7));
+            box-shadow:0 6px 26px rgba(212,169,85,0.22), inset 0 0 28px rgba(212,169,85,0.10);
+            border-radius:6px;
+            margin-top:24px;
+            margin-bottom:24px;
+          }
+
+          .mas-feature{ width:100vw; margin-left:calc(50% - 50vw); box-sizing:border-box; padding:0; background:#0e0e0d; }
+          .mas-feature-inner{ max-width:1200px; margin:0 auto; padding:36px 20px; display:grid; grid-template-columns:1fr 520px; gap:32px; align-items:center; box-sizing:border-box; }
+          .mas-feature .left, .mas-feature-inner .left { color:#efe6d6; }
+          .mas-feature h1.title-main{ font-size:28px; margin:0 0 12px; color:#d4a955; letter-spacing:2px; }
+          .mas-feature .subtitle{ color:#d4a955; font-weight:700; margin-bottom:18px; }
+          .mas-feature p.lead{ color:#efe6d6; line-height:1.6; margin-bottom:18px; }
+          .mas-feature .achievements{ color:#efe6d6; margin-top:12px; }
+          .mas-feature .achievements h3{ color:#d4a955; margin-bottom:12px; }
+          .mas-feature .achievements ul{ margin-left:18px; line-height:1.6; }
+
+          .mas-video{ width:100%; height:auto; border-radius:8px; overflow:hidden; position:relative; background:#0f0d0c; box-shadow:0 20px 60px rgba(0,0,0,0.6); }
+          .mas-video .poster{ display:block; width:100%; height:100%; background-image:url('assets/images/master-ebay-seller.png'); background-size:cover; background-position:center; padding-bottom:62%; }
+          .mas-video .play{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:84px; height:84px; border-radius:50%; background:linear-gradient(90deg,#d4a955,#b8862f); display:flex; align-items:center; justify-content:center; font-weight:800; color:#22160f; font-size:28px; box-shadow:0 8px 30px rgba(212,169,85,0.18); cursor:pointer; }
+          .mas-video .label{ position:absolute; left:0; right:0; bottom:0; padding:12px 14px; background:linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.6)); color:#efe6d6; text-align:center; font-weight:700; }
+
+          .mas-badge{ display:inline-block;background:#2b2118;color:#d4a955;padding:8px 12px;border-radius:6px;font-weight:700;margin-bottom:12px; }
+
+          .mas-contents-section{ width:100vw; margin-left:calc(50% - 50vw); background:transparent; box-sizing:border-box; padding:36px 20px 60px; }
+          .mas-contents-inner{ max-width:1200px; margin:0 auto; text-align:center; }
+          .mas-toc{ margin-top:18px; display:grid; grid-template-columns: 1fr 1fr; gap:28px; align-items:start; text-align:left; color:#efe6d6; }
+          .mas-toc-column{ padding:18px 22px; border-left:1px solid rgba(255,255,255,0.03); border-right:1px solid rgba(255,255,255,0.03); opacity:0; }
+          .mas-toc-column ul{ list-style:none; margin:0; padding:0; }
+          .mas-toc-column li{ margin:10px 0; color:#d9c59a; }
+          .mas-toc-column li.small{ color:#efe6d6; font-size:14px; margin-left:14px; }
+          
+          .mas-toc-column.animate-left {
+            animation: slideInLeft 0.8s ease-out forwards;
+          }
+          
+          .mas-toc-column.animate-right {
+            animation: slideInRight 0.8s ease-out forwards;
+          }
+          
+          .mas-section4{ width:100vw; margin-left:calc(50% - 50vw); background:transparent; box-sizing:border-box; padding:48px 20px; }
+          .mas-section4-inner{ max-width:1200px; margin:0 auto; }
+          .mas-section4-title{ text-align:center; color:#efe6d6; font-size:32px; margin-bottom:24px; }
+          .mas-section4-separator{ width:100%; height:3px; background:linear-gradient(90deg, rgba(212,169,85,0.8), rgba(212,169,85,0.4)); margin:28px 0; border-radius:2px; }
+          .mas-section4-block{ display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:center; margin-bottom:28px; }
+          .mas-section4-block.reverse{ direction:rtl; }
+          .mas-section4-block.reverse > *{ direction:ltr; }
+          .mas-section4-image{ width:100%; border-radius:12px; overflow:hidden; box-shadow:0 12px 40px rgba(0,0,0,0.5); }
+          .mas-section4-image img{ width:100%; height:auto; display:block; }
+          .mas-section4-text{ color:#efe6d6; }
+          .mas-section4-text .mas-badge{ margin-bottom:12px; }
+          .mas-section4-text h3{ color:#d4a955; font-size:24px; margin:0 0 12px; }
+          .mas-section4-text p{ color:#efe6d6; line-height:1.6; margin:0; }
+          
+          @keyframes slideInLeft {
+            from {
+              opacity: 0;
+              transform: translateX(-100px);
+            }
+            to {
+              opacity: 1;
+              transform: translateX(0);
+            }
+          }
+          
+          @keyframes slideInRight {
+            from {
+              opacity: 0;
+              transform: translateX(100px);
+            }
+            to {
+              opacity: 1;
+              transform: translateX(0);
+            }
+          }
+          
+          .mas-section4-block {
+            opacity: 0;
+          }
+          
+          .mas-section4-block.animate-left {
+            animation: slideInLeft 0.8s ease-out forwards;
+          }
+          
+          .mas-section4-block.animate-right {
+            animation: slideInRight 0.8s ease-out forwards;
+          }
+          
+          .mas-section5{ width:100vw; margin-left:calc(50% - 50vw); background:transparent; box-sizing:border-box; padding:48px 20px; }
+          .mas-section5-inner{ max-width:1200px; margin:0 auto; text-align:center; }
+          .mas-section5-title{ color:#efe6d6; font-size:28px; margin:12px 0 32px; line-height:1.4; }
+          .mas-testimonials-grid{ display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-top:24px; }
+          .mas-testimonial-card{ background:#1a1a1a; border-radius:16px; padding:0; overflow:hidden; box-shadow:0 12px 40px rgba(0,0,0,0.6); position:relative; }
+          .mas-testimonial-tag{ position:absolute; top:18px; left:18px; width:80px; height:32px; background:#bfa971; border-radius:16px 16px 16px 0; z-index:2; }
+          .mas-testimonial-video{ width:100%; height:280px; background:#4a4a4a; display:flex; align-items:center; justify-content:center; color:#fff; font-size:32px; font-weight:700; position:relative; }
+          .mas-testimonial-user{ display:flex; align-items:center; gap:14px; padding:18px 20px; background:#1a1a1a; }
+          .mas-testimonial-user img{ width:54px; height:54px; border-radius:50%; object-fit:cover; }
+          .mas-testimonial-user .info{ text-align:left; }
+          .mas-testimonial-user .name{ color:#efe6d6; font-weight:700; font-size:16px; margin:0 0 4px; }
+          .mas-testimonial-user .year{ color:#bfa971; font-size:13px; margin:0; }
+
+          @media (max-width:980px){
+            .mas-section4-block, .mas-section4-block.reverse{ grid-template-columns:1fr; direction:ltr; gap:18px; }
+            .mas-section4-title{ font-size:24px; }
+            .mas-testimonials-grid{ grid-template-columns:1fr; gap:24px; }
+            .mas-section5-title{ font-size:22px; }
+          }
+
+          @media (max-width:880px){
+            .mas-toc{ grid-template-columns:1fr; }
+            .mas-toc-column{ padding:12px; }
+          }
+
+          @media (max-width:980px){
+            .meb-hero-visual{ width:100%; max-width:1100px; }
+            .meb-separator{ height:400px; margin-top:400px; margin-bottom:400px; }
+          }
+        </style>
+
+        <div class="meb-hero">
+          <div class="meb-hero-visual" aria-hidden="false">
+            <img src="assets/images/master-ebay-seller.png" alt="eBay Seller Master">
+          </div>
+        </div>
+
+        <div class="meb-separator" aria-hidden="true"></div>
+
+        <div class="mas-feature" aria-hidden="false">
+          <div class="mas-feature-inner">
+            <div class="left">
+              <div class="mas-badge">Conoce mas</div>
+              <h1 class="title-main">EBAY SELLER</h1>
+              <div class="subtitle">Master avalado por el Modern Wealth Institute</div>
+              <p class="lead">El eBay Seller Hub Master Program es un entrenamiento completo que 
+te enseña a dominar eBay desde cero hasta nivel profesional. Aprenderás
+a crear y optimizar tu cuenta, gestionar listados e inventario, aprovechar herramientas avanzadas y mantener tu cuenta segura, mientras 
+construyes una presencia sólida en la plataforma. Con este master,
+obtendrás la confianza y los conocimientos necesarios para operar con
+eficiencia y profesionalismo en eBay.</p>
+<div class="achievements">
+                <h3>Logros alcanzados</h3>
+                <ul>
+                  <li>Dominar la plataforma eBay y sus herramientas avanzadas.</li>
+                  <li>Crear listados optimizados que atraigan a compradores y generen interacción.</li>
+                  <li>Gestionar inventario, envíos y logística de manera profesional.</li>
+                  <li>Mantener la reputación de la cuenta y operar con seguridad y eficiencia.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="mas-video" role="button" aria-label="Ver video">
+              <div class="poster"></div>
+              <div class="play">▶</div>
+              <div class="label">Master eBay Seller</div>
+            </div>
+          </div>
+        </div>
+
+       <!-- SECCIÓN 3: Contenido (badge centrado + TOC de dos columnas) -->
+        <section class="mas-contents-section" aria-labelledby="mas-contents-title">
+          <div class="mas-contents-inner">
+            <div class="mas-badge" role="presentation">Contenido</div>
+            <div id="mas-contents-title" class="mas-contents-title" aria-hidden="true"></div>
+            <div class="mas-toc" role="navigation" aria-label="Tabla de contenido">
+              <div class="mas-toc-column">
+                <ul>
+                  <li>1. Introducción a eBay y su Ecosistema</li>
+                  <li class="small">1.1 ¿Qué es eBay y cómo funciona?</li>
+                  <li class="small">1.2 Tipos de cuentas y estructuras de tarifas</li>
+                  <li class="small">1.3 Cómo funciona la venta internacional</li>
+                  <li class="small">1.4 Reglas y políticas importantes</li>
+                  <li>2. Apertura y configuración de tu cuenta de vendedor.</li>
+                  <li class="small">2.1 Crear tu cuenta paso a paso</li>
+                  <li class="small">2.2 Configuración de pagos y Payoneer</li>
+                  <li class="small">2.3 Definir políticas de envío y devoluciones</li>
+                  <li class="small">2.4 CAjustes de impuestos y facturación</li>
+                  <li class="small">2.5 Seguridad de la cuenta y verificación</li>
+                  <li>3. Investigación de productos y nichos rentables</li>
+                  <li class="small">3.1 Cómo encontrar productos ganadores</li>
+                  <li class="small">3.2 Analizando competencia y demanda</li>
+                  <li class="small">3.3 Herramientas de investigación y estadísticas</li>
+                  <li class="small">3.4 Productos trending vs evergreen</li>
+                  <li class="small">3.5 eBay Dropshipping</li>
+                  <li>4. Creación de listados que venden</li>
+                  <li class="small">4.1 Redacción de títulos irresistibles</li>
+                  <li class="small">4.2 Fotografías profesionales y edición</li>
+                  <li class="small">4.3 Descripciones optimizadas para SEO interno</li>
+                  <li class="small">4.4 Plantillas y formatos de listado</li>
+                  <li class="small">4.5 Estrategias de pricing y promociones</li>
+                  <li class="small">4.6 Tips para listados internacionales</li>
+                  <li>5. Gestión de inventario y logística</li>
+                  <li class="small">5.1 Cómo organizar y clasificar tu inventario</li>
+                  <li class="small">5.2 Métodos de envío eficientes: nacional vs. internacional</li>
+                  <li class="small">5.3 Gestión de devoluciones y reemplazos</li>
+                  <li class="small">5.4 Integración de herramientas para gestión de stock</li>
+                </ul>
+              </div>
+              <div class="mas-toc-column">
+                <ul>
+                  <li>6. Estrategias de Marketing en eBay</li>
+                  <li class="small">6.1 Usando eBay Ads para promocionar tus productos</li>
+                  <li class="small">6.2 Creación de ofertas y descuentos para atraer compradores</li>
+                  <li class="small">6.3 Estrategias de cross-selling y bundle deals</li>
+                  <li class="small">6.4 Cómo mejorar tu posicionamiento en los resultados de búsqueda</li>
+                  <li class="small">6.5 Promociones específicas por temporada y eventos</li>
+                  <li>7. Atención al Cliente y Gestión de Reputación</li>
+                  <li class="small">7.1 Cómo ofrecer un excelente servicio al cliente</li>
+                  <li class="small">7.2 Responder preguntas y manejar quejas eficazmente</li>
+                  <li class="small">7.3 Estrategias para recibir y gestionar feedback positivo</li>
+                  <li class="small">7.4 Cómo evitar sanciones y mantener la cuenta enbuen estado</li>
+                  <li class="small">7.5 Solución de problemas comunes en las ventas</li>
+                  <li>8. Análisis de métricas y escalado de ventas</li>
+                  <li class="small">8.1 Entendiendo tus KPIs</li>
+                  <li class="small">8.2 Reportes de ventas y rendimiento</li>
+                  <li class="small">8.3 Identificación de productos estrella</li>
+                  <li class="small">8.4 Plan de escalado de la cuenta</li>
+                  <li>9. Extras y actualizaciones</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECCIÓN 4: bloques alternados imagen-texto con separadores -->
+        <section class="mas-section4" aria-labelledby="mas-section4-title">
+          <div class="mas-section4-inner">
+            <h2 id="mas-section4-title" class="mas-section4-title">Pilares de un negocio exitoso en eBay</h2>
+            <div class="mas-section4-separator" aria-hidden="true"></div>
+
+            <!-- Bloque 1: imagen izquierda / texto derecha -->
+            <div class="mas-section4-block">
+              <div class="mas-section4-image">
+                <img src="assets/images/img1cripto.png" alt="VENTAS DIARIAS">
+              </div>
+              <div class="mas-section4-text">
+                <div class="mas-badge">ESTRATEGIA - VISIÓN - CONSISTENCIA</div>
+                <h3>Construir una visión clara de tu negocio</h3>
+                <p>Vender en eBay como un proyecto consciente,
+basado en estrategia, análisis de datos
+y una visión de crecimiento sostenible</p>
+              </div>
+            </div>
+
+            <div class="mas-section4-separator" aria-hidden="true"></div>
+
+            <!-- Bloque 2: texto izquierda / imagen derecha -->
+            <div class="mas-section4-block reverse">
+              <div class="mas-section4-image">
+                <img src="assets/images/img2cripto.png" alt="Paso 2">
+              </div>
+              <div class="mas-section4-text">
+                <div class="mas-badge">CONSTRUYE TU NEGOCIO</div>
+                <h3>Cómo se construye un negocio rentable</h3>
+                <p>Optimización de listings, disciplina operativa
+y toma de decisiones inteligentes
+como base de un seller estable y escalable.</p>
+              </div>
+            </div>
+
+            <div class="mas-section4-separator" aria-hidden="true"></div>
+
+            <!-- Bloque 3: imagen izquierda / texto derecha -->
+            <div class="mas-section4-block">
+              <div class="mas-section4-image">
+                <img src="assets/images/img3cripto.png" alt="Paso 3">
+              </div>
+              <div class="mas-section4-text">
+                <div class="mas-badge">MENTALIDAD DE SELLER</div>
+                <h3>La mentalidad como ancla de crecimiento en Ebay</h3>
+                <p>Disciplina, enfoque y control emocional
+como guía para enfrentar retos,
+evitar errores costosos y crecer con claridad.</p>
+              </div>
+            </div>
+
+            <div class="mas-section4-separator" aria-hidden="true"></div>
+          </div>
+        </section>
+
+        <!-- SECCIÓN 5: Testimonios (badge + título + dos columnas con videos) -->
+        <section class="mas-section5" aria-labelledby="mas-section5-title">
+          <div class="mas-section5-inner">
+            <div class="mas-badge" role="presentation">Testimonios</div>
+            <h2 id="mas-section5-title" class="mas-section5-title">Lo que nuestros alumnos dicen<br>de nuestro Master</h2>
+            
+            <div class="mas-testimonials-grid">
+              <!-- Tarjeta 1 -->
+              <div class="mas-testimonial-card">
+                <div class="mas-testimonial-tag" aria-hidden="true"></div>
+                <div class="mas-testimonial-video" role="img" aria-label="Video testimonial">
+                  VIDEO
+                </div>
+                <div class="mas-testimonial-user">
+                  <img src="assets/images/testimonial-juan.jpg" alt="Juan Hernandez">
+                  <div class="info">
+                    <div class="name">Juan Hernandez</div>
+                    <div class="year">Suscrito el 2024</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tarjeta 2 -->
+              <div class="mas-testimonial-card">
+                <div class="mas-testimonial-tag" aria-hidden="true"></div>
+                <div class="mas-testimonial-video" role="img" aria-label="Video testimonial">
+                  VIDEO
+                </div>
+                <div class="mas-testimonial-user">
+                  <img src="assets/images/testimonial-camilo.jpg" alt="Camilo Lara">
+                  <div class="info">
+                    <div class="name">Camilo Lara</div>
+                    <div class="year">Suscrito el 2025</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mwi-masters">
+
+  <div class="mwi-masters-container">
+
+    <span class="mwi-badge">Conoce mas Masters</span>
+
+    <h2 class="mwi-masters-title">
+      Líder global en la formación <br>
+      y dominio de los negocios modernos
+    </h2>
+
+    <div class="mwi-masters-carousel">
+
+      <a href="#/masters/amazon-seller" class="mwi-master-card" data-master="amazon" onclick="openMasterAmazonInline(event)">
+        <img src="assets/images/master-amazon-seller.png" alt="Amazon Seller Master">
+        <div class="mwi-master-overlay">
+          <h3>Amazon Seller<br><span>Master</span></h3>
+        </div>
+      </a>
+
+      <a href="#/masters/trading" class="mwi-master-card" data-master="trading" onclick="openMasterTradingInline(event)">
+        <img src="assets/images/master-trading.png" alt="Trading Master">
+        <div class="mwi-master-overlay">
+          <h3>Trading<br><span>Master</span></h3>
+        </div>
+      </a>
+
+      <a href="#/masters/vida-proposito" class="mwi-master-card" data-master="vida" onclick="openMasterVidaInline(event)">
+        <img src="assets/images/master-vida-proposito.png" alt="Vida con Propósito">
+        <div class="mwi-master-overlay">
+          <h3>Vida con propósito<br><span>Master</span></h3>
+        </div>
+      </a>
+
+      <a href="#/masters/cripto-arbitrage" class="mwi-master-card" data-master="cripto" onclick="openMasterCriptoInline(event)">
+        <img src="assets/images/master-cripto-arbitrage.png" alt="Cripto Arbitrage">
+        <div class="mwi-master-overlay">
+          <h3>Cripto Arbitrage<br><span>Master</span></h3>
+        </div>
+      </a>
+
+      <a href="#/masters/ebay-seller" class="mwi-master-card" data-master="ebay" onclick="openMasterEbayInline(event)">
+        <img src="assets/images/master-ebay-seller.png" alt="Ebay Seller">
+        <div class="mwi-master-overlay">
+          <h3>Ebay Seller<br><span>Master</span></h3>
+        </div>
+      </a>
+
+      <a href="#/masters/direccion-empresarial" class="mwi-master-card" data-master="empresarial" onclick="openMasterEmpresarialInline(event)">
+        <img src="assets/images/master-gestion-empresarial.png" alt="Dirección Empresarial">
+        <div class="mwi-master-overlay">
+          <h3>Dirección Empresarial<br><span>Master</span></h3>
+        </div>
+      </a>
+
+      <a href="#/masters/master-meli" class="mwi-master-card" data-master="meli" onclick="openMasterMeliInline(event)">
+        <img src="assets/images/master-meli.png" alt="Top Seller MeLi">
+        <div class="mwi-master-overlay">
+          <h3>Top Seller MeLi<br><span>Master</span></h3>
+        </div>
+      </a>
+
+      <a href="masters/shein-seller.html" class="mwi-master-card">
+        <img src="assets/images/master-shein-seller.png" alt="Shein Seller">
+        <div class="mwi-master-overlay">
+          <h3>Shein Seller<br><span>Master</span></h3>
+        </div>
+      </a>
+
+      <a href="masters/social-media.html" class="mwi-master-card">
+        <img src="assets/images/master-social-media.png" alt="Social Media Management">
+        <div class="mwi-master-overlay">
+          <h3>Social Media Management<br><span>Master</span></h3>
+        </div>
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- footer (incrustado manualmente, layout ajustado) -->
+      <style>
+        /* Footer reducido y layout en tres columnas: brand | center | right */
+        .mwi-footer { padding:12px 10px !important; background:transparent; color:#efe6d6; }
+        .mwi-footer * { box-sizing:border-box; }
+        .mwi-footer-newsletter { display:flex; gap:8px; align-items:center; margin-bottom:12px; justify-content:center; }
+        .mwi-footer-newsletter input { padding:6px 8px; font-size:12px; height:32px; min-width:200px; }
+        .mwi-footer-newsletter button { padding:6px 10px; font-size:12px; }
+
+        .mwi-footer-content {
+          display:flex;
+          align-items:flex-start;
+          justify-content:space-between;
+          gap:24px;
+          width:100%;
+          max-width:1100px;
+          margin:0 auto;
+        }
+
+        /* Marca (izquierda) */
+        .mwi-footer-brand { flex:0 0 260px; display:flex; gap:8px; flex-direction:column; align-items:center; text-align:center; }
+        .mwi-footer-brand img { width:140px; height:auto; display:block; margin-bottom:6px; }
+        .mwi-footer-brand p { font-size:13px; margin:0; line-height:1.2; color:#efe6d6; }
+
+        /* Centro: 'Trabaja con nosotros' centrado */
+        .mwi-footer-column.center { flex:1 1 auto; text-align:center; }
+        .mwi-footer-column.center h4 { margin-bottom:8px; }
+        .mwi-footer-column.center ul { padding:0; margin:0; list-style:none; display:inline-block; text-align:left; }
+
+        /* Derecha: legal alineado a la derecha */
+        .mwi-footer-column.right { flex:0 0 260px; text-align:right; }
+        .mwi-footer-column.right ul { padding:0; margin:0; list-style:none; }
+
+        .mwi-footer-column h4 { font-size:13px; margin:0 0 6px; color:#d4a955; }
+        .mwi-footer-column ul li { font-size:12px; margin-bottom:6px; }
+        .mwi-footer-bottom { font-size:12px; padding:8px 0; text-align:center; margin-top:8px; color:#bfa971; }
+
+        @media (max-width:880px) {
+          .mwi-footer-content { flex-direction:column; align-items:center; gap:12px; padding:0 10px; }
+          .mwi-footer-brand { justify-content:center; align-items:center; }
+          .mwi-footer-brand img { width:110px; }
+          .mwi-footer-column.center ul { display:block; text-align:center; }
+          .mwi-footer-column.right { text-align:center; }
+        }
+      </style>
+
+      <footer class="mwi-footer">
+        <!-- Newsletter (colocado arriba, centrado) -->
+        <div class="mwi-footer-newsletter" style="max-width:1100px; margin:0 auto 12px;">
+           <input type="email" placeholder="Correo electrónico">
+           <button>Suscríbete</button>
+         </div>
+
+         <!-- Contenido distribuido -->
+         <div class="mwi-footer-content">
+          <!-- Marca (izquierda, logo encima del texto) -->
+          <div class="mwi-footer-brand">
+            <img src="assets/images/logo-mwi-gold.png" alt="Modern Wealth Institute">
+            <p>Educación que transforma<br>conocimiento en oportunidades.</p>
+          </div>
+
+           <!-- Trabaja con nosotros (centro) -->
+           <div class="mwi-footer-column center">
+             <h4>Trabaja con nosotros</h4>
+             <ul>
+               <li><a href="https://wa.me/573003517982?text=estoy%20interesad%40%20en%20participar%20en%20el%20affiliate%20program%2C%20podrias%20darme%20mas%20informacion%3F" target="_blank" rel="noopener noreferrer">Affiliate Program</a></li>
+               <li><a href="https://wa.me/573003517982?text=Hola%2C%20estoy%20interesad%40%20en%20a%C3%B1adir%20un%20master%20a%20su%20portafolio%20de%20masters" target="_blank" rel="noopener noreferrer">Mentorship Alliance</a></li>
+               <li><a href="https://wa.me/573003517982?text=Hola%2C%20quisiera%20saber%20si%20hay%20vacantes%20para%20trabajar%20con%20el%20Modern%20Wealth%20Institute" target="_blank" rel="noopener noreferrer">Job Qualify</a></li>
+             </ul>
+           </div>
+
+           <!-- Legal (derecha) -->
+           <div class="mwi-footer-column right">
+             <h4>Legal</h4>
+             <ul>
+              <li><a href="#/terms" data-link>Términos & Condiciones</a></li>
+              <li><a href="#/privacy" data-link>Política de Privacidad</a></li>
+              <li><a href="#/payments" data-link>Política de Pagos</a></li>
+              <li><a href="#/legal" data-link>Aviso Legal</a></li>
+             </ul>
+           </div>
+         </div>
+
+         <!-- Línea inferior -->
+         <div class="mwi-footer-bottom">
+           <span>© 2025 Modern Wealth Institute. Todos los derechos reservados.</span>
+         </div>
+       </footer>
+    `;
+  },
+
+  after_render() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const block = entry.target;
+          if (block.classList.contains('reverse')) {
+            block.classList.add('animate-right');
+          } else {
+            block.classList.add('animate-left');
+          }
+          observer.unobserve(block);
+        }
+      });
+    }, {
+      threshold: 0.2
+    });
+
+    const blocks = document.querySelectorAll('.mas-section4-block');
+    blocks.forEach(block => {
+      observer.observe(block);
+    });
+
+    const tocObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const columns = entry.target.querySelectorAll('.mas-toc-column');
+          if (columns.length >= 2) {
+            columns[0].classList.add('animate-left');
+            columns[1].classList.add('animate-right');
+          }
+          tocObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.2
+    });
+
+    const tocElement = document.querySelector('.mas-toc');
+    if (tocElement) {
+      tocObserver.observe(tocElement);
+    }
+  }
+};
+
+if (typeof window !== 'undefined') window.MasterEbay = MasterEbay;
+if (typeof module !== 'undefined' && module.exports) module.exports = MasterEbay;

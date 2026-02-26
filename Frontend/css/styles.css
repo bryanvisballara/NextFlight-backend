@@ -1,0 +1,1258 @@
+/* =====================================================
+   RESET + BASE
+   ===================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: "Playfair Display", serif;
+  background: #0e0e0d;
+  color: #ffffff;
+}
+
+/* =====================================================
+   APP LAYOUT
+   ===================================================== */
+  /* === Custom Scrollbar (Dark theme, MWI style) === */
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #d4a955 #141212; /* thumb, track */
+  }
+
+  /* WebKit (Chrome, Edge, Safari) */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #141212;
+    border-radius: 10px;
+    border: 1px solid rgba(212, 169, 85, 0.18);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #d4a955, #b8862f);
+    border-radius: 10px;
+    border: 2px solid #141212; /* creates spacing effect */
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #e2bd69, #c7963b);
+  }
+  ::-webkit-scrollbar-corner {
+    background: #141212;
+  }
+
+  /* Compact scrollbars on small screens */
+  @media (max-width: 640px) {
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+  }
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+.mwi-header {
+  width: 100%;
+  position: relative;
+  z-index: 100;
+  padding: 18px 0;
+  background: #0e0e0d;
+}
+
+.mwi-header-inner {
+   max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: flex-start;
+}
+
+/* LOGO */
+.mwi-logo img {
+  height: 78px;
+  filter: drop-shadow(0 0 18px rgba(212, 175, 55, 0.35));
+}
+
+/* NAV PILL */
+.mwi-nav {
+  justify-self: center;
+  display: flex;
+  gap: 36px;
+  padding: 14px 48px;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.02)
+  );
+  border: 1px solid rgba(212, 175, 55, 0.45);
+}
+
+.mwi-nav a {
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #e5e7eb;
+  text-decoration: none;
+  white-space: nowrap;
+  position: relative;
+}
+
+.mwi-nav a.active {
+  color: #d4af37;
+}
+
+.mwi-nav a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -14px;
+  height: 2px;
+  background: #d4af37;
+  border-radius: 2px;
+}
+
+/* CTA HEADER */
+.mwi-header-cta .mwi-cta-btn {
+  font-family: "Inter", sans-serif;
+  padding: 12px 28px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.65);
+  background: transparent;
+  color: #f5e6b3;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.mwi-header-cta .mwi-cta-btn:hover {
+  background: rgba(212, 175, 55, 0.15);
+}
+
+/* =====================================================
+   HERO
+   ===================================================== */
+.mwi-hero {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px 24px 0;
+}
+
+.mwi-hero-card {
+  width: 100%;
+  max-width: 1280px;
+  border-radius: 48px;
+  padding: 46px 46px 32px;
+  background:
+    linear-gradient(
+      rgba(0,0,0,0.55),
+      rgba(0,0,0,0.75)
+    ),
+    url("/assets/images/hero-bg.jpg") center/cover no-repeat;
+  box-shadow:
+    0 40px 120px rgba(0,0,0,0.8),
+    inset 0 0 0 1px rgba(255,255,255,0.08);
+  text-align: center;
+}
+
+/* HERO TEXT */
+.mwi-hero h1 {
+  font-size: 44px;
+  line-height: 1.15;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.mwi-hero h1 span {
+  color: #d4af37;
+}
+
+.mwi-hero p {
+  max-width: 720px;
+  margin: 0 auto 48px;
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #d1d5db;
+}
+
+/* HERO BUTTONS */
+.mwi-hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+
+/* =====================================================
+   SECCIÓN INFERIOR (BANDA DORADA)
+   ===================================================== */
+.mwi-stats-band {
+  margin-top: -64px;
+  padding: 96px 24px 64px;
+  background: linear-gradient(
+    180deg,
+    #c9ab6a,
+    #b89a5c
+  );
+  text-align: center;
+  color: #111;
+}
+
+.mwi-stats-band h2 {
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.mwi-stats-band span {
+  color: #000;
+  font-weight: 700;
+}
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+@media (max-width: 1024px) {
+  .mwi-nav {
+    display: none;
+  }
+
+  .mwi-hero-card {
+    padding: 72px 48px;
+  }
+
+  .mwi-hero h1 {
+    font-size: 48px;
+  }
+}
+
+@media (max-width: 640px) {
+  .mwi-header-inner {
+    padding: 0 24px;
+  }
+
+  .mwi-logo img {
+    height: 64px;
+  filter:
+    drop-shadow(0 0 25px rgba(212, 175, 55, 0.55))
+    drop-shadow(0 0 45px rgba(212, 175, 55, 0.25));
+  }
+
+  .mwi-hero-card {
+    padding: 56px 32px;
+    border-radius: 32px;
+  }
+
+  .mwi-hero h1 {
+    font-size: 36px;
+  }
+}
+/* ==== FORCE CLEAN LOGO ==== */
+.mwi-logo,
+.mwi-logo a,
+.mwi-logo img {
+  background: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+/* ===============================
+   HERO BUTTONS
+================================ */
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 32px;
+}
+
+/* Base button */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 34px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 999px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  letter-spacing: 0.2px;
+}
+
+/* Primary gold button */
+.btn-primary {
+  background: linear-gradient(
+    180deg,
+    #f2d27a,
+    #caa84d
+  );
+  color: #0e0e0d;
+  box-shadow:
+    none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+
+/* Secondary outline button */
+.btn-secondary {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(202, 168, 77, 0.6);
+}
+
+.btn-secondary:hover {
+  background: rgba(202, 168, 77, 0.08);
+  border-color: #caa84d;
+  transform: translateY(-2px);
+}
+/* ================================
+   BOTONES HERO – MODERN WEALTH
+================================ */
+
+/* Contenedor */
+.mwi-hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 40px;
+}
+
+/* Reset de links */
+.mwi-btn {
+  all: unset;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+}
+
+/* Base del botón */
+.mwi-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 36px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+/* Botón dorado */
+.mwi-btn-gold {
+  background: linear-gradient(135deg, #f1d98a, #d4af37);
+  color: #111;
+  box-shadow: none;
+}
+
+.mwi-btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 9px 25px rgba(212, 175, 55, 0.5)
+}
+/* ================================
+   HERO CON IMAGEN + OVERLAY NEGRO
+================================ */
+
+.mwi-hero {
+  position: relative;
+  background:
+    linear-gradient(
+      rgba(14,14,13,0.85),
+      rgba(14,14,13,0.85)
+    ),
+    url("/assets/images/hero-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  border-radius: 22px;
+  padding: 100px 20px;
+  overflow: hidden;
+}
+/* ================================
+   FRANJA DORADA FULL WIDTH
+================================ */
+
+.mwi-hero-divider {
+  width: 100vw;
+  height: 100px;
+  background-color: #caa96a;
+
+  margin-top: -70px;
+  margin-left: calc(-50vw + 50%);
+
+  position: relative;
+  z-index: 1;
+}
+/* ================================
+   MWI TRUST SECTION
+================================ */
+
+.mwi-trust {
+  background-color: #0e0e0d;
+  padding: 30px 20px 30px;
+  text-align: center;
+}
+
+/* Texto principal */
+.mwi-trust-title {
+  font-family: "Playfair Display", serif;
+  font-size: 36px;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+}
+
+/* Número dorado */
+.mwi-trust-title span {
+  color: #caa96a;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mwi-trust {
+    padding: 90px 20px 100px;
+  }
+
+  .mwi-trust-title {
+    font-size: 28px;
+    line-height: 1.35;
+  }
+}
+
+/* ================================
+   ABOUT US SECTION
+================================ */
+
+.mwi-about {
+  background: #1c1c1c;
+  color: #ffffff;
+  padding: 40px 8%;
+}
+
+/* Frase superior */
+.mwi-about-top {
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+.mwi-about-top p {
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+.mwi-about-top span {
+  color: #d4af37;
+  font-weight: 600;
+}
+
+/* Contenido */
+.mwi-about-content {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* Badge */
+.mwi-badge {
+  display: inline-block;
+  background: linear-gradient(20deg, #f1d98a, #d4af37);
+  color: #111;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+/* Título */
+.mwi-about-text h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 34px;
+  line-height: 1.1;
+  color: #d4af37;
+  margin-bottom: 28px;
+}
+
+/* Texto */
+.mwi-description {
+  color: #d6d6d6;
+  line-height: 1.7;
+  margin-bottom: 40px;
+  max-width: 520px;
+}
+
+/* Identidad */
+.mwi-about-text h4 {
+  color: #d4af37;
+  margin-bottom: 16px;
+}
+
+.mwi-about-text ul {
+  list-style: none;
+  padding: 0;
+}
+
+.mwi-about-text li {
+ color: #e5e5e5;
+  position: relative;
+  padding-left: 14px;
+}
+.mwi-about-text li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #d4af37;
+}
+
+/* Imagen */
+.mwi-about-image {
+  position: relative;
+}
+
+.mwi-about-image img {
+  width: 100%;
+  border-radius: 16px;
+  filter: grayscale(100%);
+}
+.mwi-about-image img {
+  opacity: 0.15;
+}
+
+/* Badge alumnos */
+.mwi-students-badge {
+  position: absolute;
+  bottom: -20px;
+  left: -20px;
+  background: linear-gradient(135deg, #f1d98a, #d4af37);
+  color: #111;
+  padding: 14px 18px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: none;
+}
+
+.mwi-students-badge strong {
+  font-size: 22px;
+}
+
+.mwi-students-badge span {
+  font-size: 13px;
+}
+@media (max-width: 900px) {
+  .mwi-about-content {
+    grid-template-columns: 1fr;
+  }
+
+  .mwi-about-top p {
+    font-size: 22px;
+  }
+
+  .mwi-about-text h2 {
+    font-size: 40px;
+  }
+}
+
+/* ================================
+   SERVICESS SECTION
+================================ */
+
+
+.mwi-services {
+  background: #0b0b0b;
+  padding: 50px 8% 10px;
+  text-align: center;
+}
+
+/* Título */
+.mwi-services-title {
+  font-family: "Playfair Display", serif;
+  font-size: 30px;
+  margin: 30px 0 80px;
+  color: #ffffff;
+}
+.mwi-services .mwi-badge {
+  font-size: 20px;
+  padding: 10px 26px;
+  border-radius: 999px;
+  letter-spacing: 0.5px;
+}
+
+
+/* Grid */
+.mwi-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-bottom: 80px;
+}
+
+/* Card */
+.mwi-service-card {
+  background: transparent;
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform 0.4s ease;
+}
+
+.mwi-service-card:hover {
+  transform: translateY(-8px);
+}
+
+/* Imagen superior */
+.mwi-service-image img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.9);
+}
+
+/* Parte dorada inferior */
+.mwi-service-content {
+  background: #c6a96b;
+  padding: 10px 5px 12px;
+  border-radius: 0 0 28px 28px;
+}
+
+.mwi-service-content p {
+  font-family: "Playfair Display", serif;
+  font-size: 18px;
+  line-height: 1.2;
+  color: #ffffff;
+}
+
+/* Footer */
+.mwi-services-footer span {
+  font-family: "Playfair Display", serif;
+  font-size: 16px;
+  border-bottom: 1px solid #ffffff;
+  padding-bottom: 3px;
+}
+@media (max-width: 1024px) {
+  .mwi-services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mwi-service-image img {
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+    border-radius: 18px;
+  }
+}
+.mwi-service-card:hover .mwi-service-content {
+  box-shadow: 0 20px 50px rgba(198, 169, 107, 0.35);
+}
+
+
+/* ===============================
+   MASTERS – CAROUSEL (SAFE)
+   =============================== */
+
+.mwi-masters {
+  background: #0b0b0b;
+}
+
+.mwi-masters-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 8% 10px; /* top | sides | bottom */
+  text-align: center;
+}
+
+.mwi-masters-title {
+  font-family: "Playfair Display", serif;
+  font-size: 30px;
+  color: #ffffff;
+  margin: 24px 0 80px;
+}
+
+/* Carrusel */
+.mwi-masters-carousel {
+  display: flex;
+  gap: 40px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0 8%;
+}
+
+.mwi-masters-carousel::-webkit-scrollbar {
+  height: 6px;
+}
+
+.mwi-masters-carousel::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 6px;
+}
+
+/* ===============================
+   SERVICIOS – CARRUSEL MÓVIL
+   Solo en teléfono: carrusel horizontal con scroll-snap
+   =============================== */
+@media (max-width: 640px) {
+  .mwi-services {
+    padding: 40px 16px 10px;
+  }
+
+  .mwi-services-grid {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mwi-services-grid::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .mwi-services-grid::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.55);
+    border-radius: 6px;
+  }
+
+  .mwi-service-card {
+    flex: 0 0 82%;
+    scroll-snap-align: center;
+    border-radius: 18px;
+    background: transparent;
+  }
+
+  .mwi-service-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 18px;
+    filter: brightness(0.95);
+  }
+}
+
+/* Cards */
+.mwi-master-card {
+  min-width: 320px;
+  height: 420px;
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+  scroll-snap-align: center;
+  transform: scale(0.92);
+  opacity: 0.75;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+
+.mwi-master-card:hover,
+.mwi-master-card:focus {
+  transform: scale(1);
+  opacity: 1;
+  z-index: 2;
+}
+.mwi-master-card:hover {
+  box-shadow: 0 5px 10px rgba(212,175,55,0.35);
+}
+
+.mwi-master-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Overlay */
+.mwi-master-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.15),
+    rgba(0,0,0,0.75)
+  );
+  display: flex;
+  align-items: flex-end;
+  padding: 24px;
+}
+
+.mwi-master-overlay h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 28px;
+  color: #ffffff;
+  text-align: left;
+}
+
+.mwi-master-overlay span {
+  color: #d4af37;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mwi-masters-title {
+    font-size: 34px;
+  }
+
+  .mwi-master-card {
+    min-width: 260px;
+    height: 360px;
+  }
+}
+.mwi-masters .mwi-badge {
+  font-size: 20px;
+  padding: 12px 36px;
+  border-radius: 999px;
+  letter-spacing: 0.8px;
+  margin-bottom: 28px;
+}
+
+/* ===============================
+   TESTIMONIAL SECTION
+   =============================== */
+
+.mwi-testimonials {
+  background: #0b0b0b;
+  padding: 70px 0;
+  text-align: center;
+}
+
+.mwi-testimonials-title {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 500;
+  margin: 30px 0 90px;
+}
+.mwi-testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.mwi-testimonial-card {
+  background: #1c1c1c;
+  border-radius: 36px;
+  padding: 30px 24px 24px;
+  position: relative;
+  text-align: left;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+}
+.mwi-testimonial-tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 35%;
+  height: 30px;
+  background: #c9ab6b;
+  border-radius: 36px 36px 36px 0;
+}
+.mwi-testimonial-arrow {
+  position: absolute;
+  top: 26px;
+  right: 26px;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid #e6c98b;
+  border-radius: 50%;
+  color: #e6c98b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+.mwi-testimonial-stars {
+  color: #ffffff;
+  font-size: 18px;
+  margin-bottom: 28px;
+  letter-spacing: 4px;
+}
+.mwi-testimonial-card blockquote {
+  color: #ffffff;
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0 0 40px;
+  padding-left: 16px;
+  border-left: 3px solid #e6c98b;
+}
+.mwi-testimonial-user {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.mwi-testimonial-user img {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.mwi-testimonial-user strong {
+  color: #ffffff;
+  display: block;
+  font-size: 16px;
+}
+.mwi-testimonial-user span {
+  color: #c9ab6b;
+  font-size: 14px;
+}
+.mwi-badge {
+  display: inline-block;
+  background: #d4af37;
+  color: #111;
+  padding: 14px 36px;     /* ⬅ más grande */
+  border-radius: 999px;
+  font-size: 17px;        /* ⬅ texto más grande */
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 32px;
+}
+.mwi-badge {
+  background: linear-gradient(
+    135deg,
+    #f5e7b2 0%,
+    #d4af37 45%,
+    #b8962e 100%
+  );
+  color: #111;
+}
+
+/* ===============================
+   FOOTER SECTION
+   =============================== */
+
+.mwi-footer {
+ background-color: #0e0e0d; /* RGB(14, 14, 13) */
+  padding: 70px 8% 30px;
+  font-family: "Inter", sans-serif;
+  color: #d0d0d0;
+}
+
+/* Newsletter */
+.mwi-footer-newsletter {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 70px;
+}
+
+.mwi-footer-newsletter input {
+  width: 380px;
+  padding: 14px 18px;
+  background: #8e8e8e;
+  border: none;
+  font-size: 14px;
+  outline: none;
+}
+
+.mwi-footer-newsletter button {
+  padding: 14px 26px;
+  background: linear-gradient(135deg, #f1d98a, #d4af37);
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  color: #111;
+}
+
+/* Contenido */
+.mwi-footer-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 80px;
+  align-items: flex-start;
+}
+
+/* Marca */
+.mwi-footer-brand img {
+  width: 170px;
+  margin-bottom: 18px;
+}
+
+.mwi-footer-brand p {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.mwi-footer-brand strong {
+  color: #d4af37;
+  font-weight: 500;
+}
+
+/* Columnas */
+.mwi-footer-column h4 {
+  color: #cfae70;
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 22px;
+}
+
+.mwi-footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mwi-footer-column li {
+  margin-bottom: 12px;
+}
+
+.mwi-footer-column a {
+  color: #e0e0e0;
+  text-decoration: none;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.mwi-footer-column a:hover {
+  color: #d4af37;
+  padding-left: 6px;
+}
+
+/* Bottom */
+.mwi-footer-bottom {
+  margin-top: 70px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  font-size: 13px;
+  color: #9a9a9a;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .mwi-footer-content {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .mwi-footer-newsletter {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mwi-footer-newsletter input {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+/* ===============================
+   popup box register
+   =============================== */
+
+.auth-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+
+.auth-modal.hidden {
+  display: none;
+}
+
+.auth-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(6px);
+}
+
+.auth-modal-box {
+  position: relative;
+  max-width: 980px;
+  width: 92%;
+  margin: 5vh auto;
+  background: #0e0e0d;
+  border-radius: 18px;
+  border: 1px solid rgba(212,175,55,0.35);
+  box-shadow: 0 40px 120px rgba(0,0,0,0.8);
+  overflow: hidden;
+}
+
+.auth-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #d4af37;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* On phones, hide the close X to prevent overlap; use the action button */
+@media (max-width: 640px) {
+  .auth-modal-close { display: none !important; }
+}
+
+
+
+
+/* ===============================
+   ADMIN DASHBOARD THEME
+   =============================== */
+
+/* Layout */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 240px;
+  background: #0e0e0d;
+  border-right: 1px solid rgba(212,169,85,0.25);
+  box-shadow: inset 0 0 60px rgba(0,0,0,0.45);
+  padding: 18px 14px;
+}
+
+.sidebar-header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 8px 6px 18px;
+  border-bottom: 1px solid rgba(212,169,85,0.12);
+}
+
+.sidebar-logo h2 {
+  color: #d4af37;
+  letter-spacing: 1px;
+}
+
+.user-info { display:flex; gap:10px; align-items:center; }
+.user-avatar { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.35); border:1px solid rgba(212,169,85,.35); color:#e8dcc0; font-weight:800; }
+.user-details .user-name { font-family:"Inter", sans-serif; font-size:13px; color:#efe6d6; }
+.user-details .user-role { font-family:"Inter", sans-serif; font-size:12px; color:#bfa971; }
+
+.sidebar-nav { display:flex; flex-direction:column; gap:8px; padding: 12px 0; }
+.sidebar .nav-item { display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:8px; color:#e8dcc0; text-decoration:none; border:1px solid transparent; }
+.sidebar .nav-item:hover { border-color: rgba(212,169,85,0.18); background: rgba(212,169,85,0.06); }
+.sidebar .nav-item.active { border-color: rgba(212,169,85,0.35); background: rgba(212,169,85,0.10); }
+.sidebar .nav-icon { width:20px; text-align:center; }
+.sidebar-footer { margin-top:auto; padding-top:12px; border-top:1px solid rgba(212,169,85,0.12); }
+.btn-logout { width:100%; display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:8px; background:rgba(209,161,86,.08); border:1px solid rgba(209,161,86,.45); color:#e8dcc0; cursor:pointer; }
+
+.main-content { margin-left: 240px; min-height: 100vh; background: #161412; padding: 24px 28px; }
+.content-header h1 { font-size: 42px; color: #efe6d6; }
+.content-header p { color:#cdbb9a; margin-top:4px; }
+
+/* Admin Users: make table full width */
+.admin-users-content { width: 100%; }
+.users-table-container { width: 100%; }
+.admin-table { width: 100%; }
+
+/* KPI grid */
+.stats-grid { display:grid; grid-template-columns: repeat(4, minmax(220px, 1fr)); gap: 16px; margin-top: 18px; }
+.stat-card { background: #1b1816; border:1px solid rgba(212,169,85,0.18); border-radius:12px; padding: 14px 16px; box-shadow: 0 12px 30px rgba(0,0,0,0.35), inset 0 0 40px rgba(0,0,0,0.25); }
+.stat-card .stat-icon { color:#cfae70; font-size:18px; margin-bottom:8px; }
+.stat-card h3 { font-size: 30px; color:#f6e7c9; margin-bottom: 6px; }
+.stat-card p { color:#cdbb9a; font-size: 13px; }
+.stat-card .trend { display:inline-flex; align-items:center; gap:6px; background:#234c2c; color:#b8f0c4; border:1px solid rgba(0,128,0,0.3); padding:3px 8px; border-radius:6px; font-size:12px; margin-left:8px; }
+.stat-card .trend.down { background:#4c2323; color:#f0b8b8; border-color: rgba(128,0,0,0.3); }
+
+@media (max-width: 1024px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .main-content { margin-left: 0; padding: 18px; }
+  .sidebar { position: static; height: auto; width: 100%; }
+  .stats-grid { grid-template-columns: 1fr; }
+}
+
+
+
+
+/* =============================================
+   MOBILE-FIRST RESPONSIVE HELPERS (GLOBAL)
+   ============================================= */
+
+/* Container: full width with lateral padding */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 16px;
+  margin: 0 auto;
+}
+
+/* Grid utility: 2 cols on desktop, 1 col on mobile */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Buttons: improve tap targets and width */
+.btn,
+button {
+  min-height: 48px;
+  font-size: 16px;
+}
+@media (max-width: 768px) {
+  .btn,
+  button,
+  .mwi-btn {
+    width: 100%;
+  }
+}
+
+/* Forms: inputs friendly on mobile (avoid iOS zoom) */
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+}
+.form-group { margin-bottom: 16px; }
+
+/* Modals: compact rectangle on phones */
+@media (max-width: 640px) {
+  .auth-modal-box {
+    width: 92vw !important;
+    max-width: 340px !important;
+    max-height: 80vh !important;
+    margin: 10vh auto !important;
+    border-radius: 12px !important;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Typography: scalable headings on small screens */
+@media (max-width: 768px) {
+  h1 { font-size: clamp(24px, 6vw, 36px); }
+  h2 { font-size: clamp(20px, 5vw, 28px); }
+  p  { font-size: 16px; }
+}
+
+
+

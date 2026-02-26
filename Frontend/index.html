@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Modern Wealth Institute - Educación financiera de clase mundial para transformar tu futuro">
+  <title>Modern Wealth Institute</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Contenedor principal de la aplicación (SPA) -->
+  <div id="app">
+    <div style="text-align: center; padding: 50px;">
+      <h2>Cargando Modern Wealth Institute...</h2>
+      <p>Por favor espera un momento.</p>
+    </div>
+  </div>
+
+  <!-- Scripts - Orden de carga importante -->
+  
+  <!-- 1. Mock Data -->
+  <script src="js/data/mockData.js"></script>
+  
+  <!-- 2. Core (Sistema base) -->
+  <script src="js/core/config.js"></script>
+  <script src="js/core/storage.js"></script>
+  <script src="js/core/utils.js"></script>
+  <script src="js/core/auth.js"></script>
+  <script src="js/core/router.js"></script>
+  
+  <!-- 2.1 Services (API fetchers) -->
+  <script src="js/services/PodcastService.js"></script>
+  <script src="js/services/MentorService.js"></script>
+  <script src="js/services/MasterService.js"></script>
+  <script src="js/services/HomePodcastLoader.js"></script>
+  <script src="js/services/LiveSessionService.js"></script>
+  <script src="js/services/PaymentService.js"></script>
+  
+  <!-- 3. Components (Componentes reutilizables) -->
+  <script src="js/components/Header.js"></script>
+  <script src="js/components/Footer.js"></script>
+  <script src="js/components/Sidebar.js"></script>
+  
+  <!-- 4. Pages - Páginas Públicas -->
+  <script src="js/pages/HomePage.js"></script>
+  <script src="js/pages/LoginPage.js"></script>
+  <script src="js/pages/RegisterPage.js"></script>
+  <script src="js/pages/ForgotPasswordPage.js"></script>
+  <script src="js/pages/ResetPasswordPage.js"></script>
+  <script src="js/pages/TermsPage.js"></script>
+  <script src="js/pages/PrivacyPage.js"></script>
+  <script src="js/pages/PaymentsPage.js"></script>
+  <script src="js/pages/LegalPage.js"></script>
+  <script src="js/pages/verificationsucess.js"></script>
+  <script src="js/pages/PaymentSuccessPage.js"></script>
+  
+  <!-- 5. Pages - Portal Alumno -->
+  <script src="js/pages/DashboardPage.js"></script>
+  <script src="js/pages/MastersListPage.js"></script>
+  <script src="js/pages/MastersPage.js"></script>
+  <script src="js/pages/MasterPlayerPage.js"></script>
+  <script src="js/pages/MasterProfilePage.js"></script>
+  <script src="js/pages/MasterDetailPage.js"></script>
+  <script src="js/pages/ModuleViewPage.js"></script>
+  <script src="js/pages/PodcastPage.js"></script>
+  <script src="js/pages/PodcastPlayerPage.js"></script>
+  <script src="js/pages/MessagesPage.js"></script>
+  <script src="js/pages/NotificationsPage.js"></script>
+  <script src="js/pages/SupportPage.js"></script>
+  <script src="js/pages/PartnerCenterPage.js"></script>
+  <script src="js/pages/ServicesPage.js"></script>
+  
+  <!-- 6. Pages - Admin -->
+  <script src="js/pages/AdminDashboardPage.js"></script>
+  <script src="js/pages/AdminUsersPage.js"></script>
+  <script src="js/pages/AdminMastersPage.js"></script>
+  <script src="js/pages/AdminMasterCreatePage.js"></script>
+  <script src="js/pages/AdminMasterEditPage.js"></script>
+  <script src="js/pages/AdminPodcastPage.js"></script>
+  <script src="js/pages/AdminPodcastCreatePage.js"></script>
+  <script src="js/pages/AdminMentorsPage.js"></script>
+  <script src="js/pages/AdminMentorEditPage.js"></script>
+  <script src="js/pages/AdminLiveSessionsPage.js"></script>
+  <script src="js/pages/AdminConfigPage.js"></script>
+  <script src="js/pages/AdminPaymentsHistoryPage.js"></script>
+  
+  <!-- 7. Pages - Error -->
+  <script src="js/pages/NotFoundPage.js"></script>
+  
+  <!-- 8. App Initialization (Inicialización de la aplicación) -->
+  <script>
+    /**
+     * INICIALIZACIÓN DE LA APLICACIÓN
+     * 
+     * Este script se ejecuta cuando todos los recursos están cargados.
+     * 1. Inicializa el localStorage con mock data
+     * 2. Inicializa el router
+     * 3. La aplicación está lista para usar
+     */
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('🚀 Iniciando Modern Wealth Institute...');
+      
+      try {
+        // Bootstrap de sesión segura desde backend
+        try { AuthManager.bootstrap().finally(() => Router.init('app')); } catch { Router.init('app'); }
+        console.log('✅ Router inicializado');
+        
+        console.log('✅ Modern Wealth Institute iniciado correctamente');
+        console.log('');
+        console.log('='.repeat(60));
+        console.log('CREDENCIALES DE PRUEBA:');
+        console.log('='.repeat(60));
+        console.log('Alumno:');
+        console.log('  Email: alumno@mwi.com');
+        console.log('  Contraseña: password123');
+        console.log('');
+        console.log('Administrador:');
+        console.log('  Email: admin@mwi.com');
+        console.log('  Contraseña: admin123');
+        console.log('='.repeat(60));
+      } catch (error) {
+        console.error('❌ Error al inicializar la aplicación:', error);
+        document.getElementById('app').innerHTML = `
+          <div style="text-align: center; padding: 50px; color: #ef4444;">
+            <h2>Error al cargar la aplicación</h2>
+            <p>Por favor, recarga la página.</p>
+            <button onclick="location.reload()" style="padding: 10px 20px; margin-top: 20px; cursor: pointer;">
+              Recargar
+            </button>
+          </div>
+        `;
+      }
+
+      // Interceptor global de formularios para evitar navegación GET en SPA
+      // Maneja: registro (#registerForm | #register-form) y login (#loginForm | #login-form | #login-form-modal)
+      document.addEventListener('submit', async (e) => {
+        const form = e.target;
+        if (!form) return;
+        const id = form.id || '';
+
+        // Registro
+        if (id === 'registerForm' || id === 'register-form') {
+          e.preventDefault();
+          try {
+            if (typeof RegisterPage !== 'undefined' && typeof RegisterPage.handleRegister === 'function') {
+              RegisterPage.handleRegister(form);
+              return;
+            }
+          } catch (err) {
+            console.error('[Register] interceptor error', err);
+          }
+          return;
+        }
+
+        // Login
+        if (id === 'loginForm' || id === 'login-form' || id === 'login-form-modal') {
+          e.preventDefault();
+          try {
+            // Si la página actual provee handler nativo y el formulario tiene campos estándar, úsalo
+            if (typeof RegisterPage !== 'undefined' && typeof RegisterPage.handleLogin === 'function' && form.email && form.password) {
+              RegisterPage.handleLogin(form);
+              return;
+            }
+            if (typeof LoginPage !== 'undefined' && typeof LoginPage.handleLogin === 'function' && form.email && form.password) {
+              LoginPage.handleLogin(form);
+              return;
+            }
+
+            // Adaptador: formularios con campos loginEmail/loginPassword (ej: modal en HomePage)
+            const emailVal = (form.email && form.email.value) || (form.loginEmail && form.loginEmail.value) || '';
+            const passVal = (form.password && form.password.value) || (form.loginPassword && form.loginPassword.value) || '';
+            if (!emailVal || !passVal) {
+              console.warn('[Login] formulario sin valores de email/password');
+              return;
+            }
+
+            // Mostrar overlay de carga a la fuerza para el flujo adaptado
+            const submitBtn = form.querySelector('button[type="submit"]');
+            if (submitBtn) submitBtn.disabled = true;
+            const startTs = Date.now();
+            let usedLocalOverlay = false;
+            const showLocalOverlay = (msg) => {
+              usedLocalOverlay = true;
+              try {
+                const overlay = document.createElement('div');
+                overlay.id = 'mwi-loading-overlay-global-login';
+                overlay.style.position = 'fixed'; overlay.style.inset = '0'; overlay.style.background = 'rgba(0,0,0,0.66)';
+                overlay.style.display = 'flex'; overlay.style.alignItems = 'center'; overlay.style.justifyContent = 'center'; overlay.style.zIndex = '9999';
+                const s = document.createElement('style'); s.textContent = '@keyframes mwi-spin-gl {from{transform:rotate(0)}to{transform:rotate(360deg)}}'; overlay.appendChild(s);
+                const box = document.createElement('div'); box.style.background = 'linear-gradient(180deg,#171515,#0f0d0c)'; box.style.border = '1px solid rgba(212,169,85,.22)'; box.style.borderRadius = '12px'; box.style.padding = '18px 22px'; box.style.minWidth = '280px'; box.style.boxShadow = '0 10px 28px rgba(0,0,0,.55)'; box.style.color = '#e8dcc0'; box.style.display = 'flex'; box.style.flexDirection = 'column'; box.style.alignItems = 'center'; box.style.gap = '12px';
+                const spinner = document.createElement('div'); spinner.style.width = '42px'; spinner.style.height = '42px'; spinner.style.border = '4px solid rgba(212,169,85,.18)'; spinner.style.borderTopColor = '#d4a955'; spinner.style.borderRadius = '50%'; spinner.style.animation = 'mwi-spin-gl .9s linear infinite';
+                const msgEl = document.createElement('div'); msgEl.textContent = msg || 'Iniciando sesión...'; msgEl.style.fontWeight = '800'; msgEl.style.color = '#f6e9c9'; msgEl.style.textAlign = 'center'; msgEl.style.fontSize = '14px';
+                box.appendChild(spinner); box.appendChild(msgEl); overlay.appendChild(box); document.body.appendChild(overlay);
+              } catch {}
+            };
+            const hideLocalOverlay = () => { try { document.getElementById('mwi-loading-overlay-global-login')?.remove(); } catch {} };
+            try {
+              if (typeof RegisterPage !== 'undefined' && typeof RegisterPage.showLoadingOverlay === 'function') {
+                RegisterPage.showLoadingOverlay('Iniciando sesión...');
+              } else {
+                showLocalOverlay('Iniciando sesión...');
+              }
+            } catch { showLocalOverlay('Iniciando sesión...'); }
+
+            const base = (window.API_URL) || (window.MWI && window.MWI.API_BASE_URL) || 'https://mwi-backend.onrender.com';
+            // Intento remoto primero
+            const r = await fetch(`${base}/auth/login`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email: emailVal.trim(), password: passVal })
+            });
+            const data = await r.json().catch(() => ({}));
+                if (r.ok) {
+                  if (data && data.token) {
+                    try { localStorage.setItem('mwi:token', data.token); } catch {}
+                  }
+                  // Obtener perfil desde backend para establecer rol en sesión
+                  try {
+                    const meRes = await fetch(`${base}/auth/me`, {
+                      headers: { Authorization: `Bearer ${localStorage.getItem('mwi:token') || ''}` }
+                    });
+                    const meData = await meRes.json().catch(() => ({}));
+                    if (meRes.ok && meData && meData.user) {
+                      try {
+                        const roleRaw = meData.user.role;
+                        const normalizedRole = (roleRaw == null ? roleRaw : String(roleRaw).toLowerCase());
+                        const userSession = {
+                          id: meData.user._id || meData.user.id || `user-${Date.now()}`,
+                          name: meData.user.name || '',
+                          email: meData.user.email || emailVal.trim(),
+                          role: normalizedRole,
+                          isPaid: !!meData.user.isPaid
+                        };
+                        localStorage.setItem('mwi:user', JSON.stringify(userSession));
+                      } catch {}
+                    }
+                  } catch {}
+                  // Forzar tiempo mínimo de overlay (~5s) antes de navegar
+                  const minDelayMs = 5000;
+                  const elapsed = Date.now() - startTs;
+                  const waitMs = Math.max(0, minDelayMs - elapsed);
+                  setTimeout(async () => {
+                    try { if (typeof RegisterPage !== 'undefined' && typeof RegisterPage.hideLoadingOverlay === 'function') RegisterPage.hideLoadingOverlay(); } catch {}
+                    if (usedLocalOverlay) hideLocalOverlay();
+                    if (submitBtn) submitBtn.disabled = false;
+                    if (typeof Utils !== 'undefined' && typeof Utils.showSuccess === 'function') {
+                      Utils.showSuccess('Ingreso exitoso');
+                    }
+                    // Cerrar cualquier modal abierto y liberar el scroll antes de navegar
+                    try {
+                      const reg = document.getElementById('register-modal');
+                      const log = document.getElementById('login-modal');
+                      if (reg) { reg.style.display = 'none'; reg.setAttribute('aria-hidden','true'); }
+                      if (log) { log.style.display = 'none'; log.setAttribute('aria-hidden','true'); }
+                      if (typeof window.closeAuthModal === 'function') { window.closeAuthModal(); }
+                      document.documentElement.style.overflow = '';
+                    } catch (e) {}
+                     // Decidir ruta de forma centralizada y confiable
+                     try { await AuthManager.bootstrap(); } catch {}
+                     const target = (typeof AuthManager !== 'undefined' && typeof AuthManager.getDefaultRoute === 'function')
+                       ? AuthManager.getDefaultRoute()
+                       : '/dashboard';
+                     if (typeof Router !== 'undefined' && typeof Router.navigate === 'function') {
+                       try { Router.navigate(target); } catch {}
+                     } else {
+                       try { window.location.hash = '#' + target; } catch {}
+                     }
+                  }, waitMs);
+                } else {
+                // Fuerza mostrar el modal de error cuando las credenciales son inválidas
+                try { if (typeof RegisterPage !== 'undefined' && typeof RegisterPage.hideLoadingOverlay === 'function') RegisterPage.hideLoadingOverlay(); } catch {}
+                if (usedLocalOverlay) hideLocalOverlay();
+                if (submitBtn) submitBtn.disabled = false;
+                if (typeof Utils !== 'undefined' && typeof Utils.showPopupError === 'function') {
+                  Utils.showPopupError('Usuario o contraseña incorrectas, intente denuevo');
+                } else if (typeof Utils !== 'undefined' && typeof Utils.showError === 'function') {
+                  Utils.showError('Usuario o contraseña incorrectas, intente denuevo');
+                }
+                return;
+            }
+          } catch (err) {
+            console.error('[Login] interceptor error', err);
+            try { if (typeof RegisterPage !== 'undefined' && typeof RegisterPage.hideLoadingOverlay === 'function') RegisterPage.hideLoadingOverlay(); } catch {}
+            if (usedLocalOverlay) hideLocalOverlay();
+            if (submitBtn) submitBtn.disabled = false;
+              // Fallback local SOLO si hubo error de red (fetch falló)
+              try {
+                const localRes = AuthManager.login(emailVal.trim(), passVal);
+                if (localRes && localRes.success) {
+                  try { localStorage.setItem('mwi:token', 'dev-local'); } catch {}
+                  const minDelayMs = 5000;
+                  const elapsed = Date.now() - startTs;
+                  const waitMs = Math.max(0, minDelayMs - elapsed);
+                  setTimeout(async () => {
+                    try { if (typeof RegisterPage !== 'undefined' && typeof RegisterPage.hideLoadingOverlay === 'function') RegisterPage.hideLoadingOverlay(); } catch {}
+                    if (usedLocalOverlay) hideLocalOverlay();
+                    if (submitBtn) submitBtn.disabled = false;
+                    if (typeof Utils !== 'undefined' && typeof Utils.showSuccess === 'function') {
+                      Utils.showSuccess('Ingreso exitoso');
+                    }
+                    try { await AuthManager.bootstrap(); } catch {}
+                    const target = (typeof AuthManager !== 'undefined' && typeof AuthManager.getDefaultRoute === 'function') ? AuthManager.getDefaultRoute() : '/dashboard';
+                    if (typeof Router !== 'undefined' && typeof Router.navigate === 'function') { try { Router.navigate(target); } catch {} } else { try { window.location.hash = '#' + target; } catch {} }
+                  }, waitMs);
+                } else {
+                  if (typeof Utils !== 'undefined' && typeof Utils.showPopupError === 'function') {
+                    Utils.showPopupError('Usuario o contraseña incorrectas, intente denuevo');
+                  } else if (typeof Utils !== 'undefined' && typeof Utils.showError === 'function') {
+                    Utils.showError('Usuario o contraseña incorrectas, intente denuevo');
+                  }
+                  return;
+                }
+              } catch (e) {
+                if (typeof Utils !== 'undefined' && typeof Utils.showPopupError === 'function') {
+                  Utils.showPopupError('Usuario o contraseña incorrectas, intente denuevo');
+                } else if (typeof Utils !== 'undefined' && typeof Utils.showError === 'function') {
+                  Utils.showError('Usuario o contraseña incorrectas, intente denuevo');
+                }
+              }
+          }
+          return;
+        }
+      }, true);
+    });
+    
+    /**
+     * Prevenir recarga accidental en desarrollo
+     */
+    window.addEventListener('beforeunload', (e) => {
+      // Comentar esta línea en producción
+      // e.preventDefault();
+      // e.returnValue = '';
+    });
+    
+    /**
+     * Debug: Exponer objetos globales en consola (solo desarrollo)
+     */
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      window.MWI = {
+        Router,
+        AuthManager,
+        StorageManager,
+        Utils,
+        MOCK_DATA
+      };
+      console.log('🔧 Modo desarrollo: Objetos globales disponibles en window.MWI');
+    }
+  </script>
+  <div id="auth-modal" class="auth-modal hidden">
+  <div class="auth-modal-overlay"></div>
+  <div class="auth-modal-box">
+    <button class="auth-modal-close" aria-label="Cerrar">×</button>
+    <div id="auth-modal-content"></div>
+  </div>
+</div>
+
+    <!-- SheetJS (XLSX) for export -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  </body>
+</html>
